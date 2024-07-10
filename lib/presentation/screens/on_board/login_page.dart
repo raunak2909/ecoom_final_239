@@ -5,6 +5,7 @@ import 'package:ecommerce_app/presentation/screens/on_board/login_bloc/login_sta
 import 'package:ecommerce_app/presentation/screens/on_board/sign_up_bloc/sign_bloc.dart';
 import 'package:ecommerce_app/presentation/screens/on_board/sign_up_page.dart';
 import 'package:ecommerce_app/presentation/screens/pages/home_page.dart';
+import 'package:ecommerce_app/presentation/screens/pages/navigation_page.dart';
 import 'package:ecommerce_app/presentation/screens/pages/product_bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,9 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BlocProvider(
-                                  create: (context) => ProductBloc(apiHelper: ApiHelper()),
-                                    child: HomePage()),
+                                builder: (context) => NavigationPage(),
                               ));
                         }
                       },

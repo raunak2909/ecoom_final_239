@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/presentation/screens/on_board/sign_up_bloc/sign_event.dart';
 import 'package:ecommerce_app/presentation/screens/on_board/sign_up_bloc/sign_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../data/app_pref.dart';
 import '../../../../domain/api_data/api.dart';
 import '../../../../domain/api_data/api_urls.dart';
 
