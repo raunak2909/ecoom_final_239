@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ItemPage extends StatelessWidget{
+class MyCartPage extends StatelessWidget{
   List<Map<String,dynamic>> listItem=[
     {
       'Image':'assets/images/hea.png',

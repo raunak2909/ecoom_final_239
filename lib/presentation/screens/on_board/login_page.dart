@@ -48,16 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                             label: Text('Password'),
                             hintText: 'Enter your Password',
-                            suffixIcon: InkWell(
-                                onTap: () {
-                                  if (isHide) {
-                                    isHide = false;
-                                  } else {
-                                    isHide = true;
-                                  }
-                                  setState(() {});
-                                },
-                                child: Icon(Icons.remove_red_eye)),
+                            suffixIcon: IconButton(onPressed: (){
+                              isHide=!isHide;
+                              setState(() {
+
+                              });
+                            },icon: Icon(isHide?Icons.visibility:Icons.visibility_off),),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             )),

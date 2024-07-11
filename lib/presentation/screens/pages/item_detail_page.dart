@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
-class AddToCartPage extends StatelessWidget{
+class ItemDetailPage extends StatelessWidget{
+  String imgUrl;
+  String pName;
+  String pPrice;
+  ItemDetailPage({required this.imgUrl,required this.pName,required this.pPrice});
   List<Map<String,dynamic>> listColor=[
     {
       'color':Colors.orange
@@ -54,7 +59,7 @@ class AddToCartPage extends StatelessWidget{
                 ],
               ),
             ),
-            Image.asset('assets/images/ear.png',height: 330,),
+            Image.network(imgUrl,height: 300,width: 300,),
             SizedBox(
               height: 500,
               child: Container(
@@ -67,8 +72,8 @@ class AddToCartPage extends StatelessWidget{
                   padding: const EdgeInsets.all(30),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Wireless HeadPhone',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),),
-                        Text('\$560',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500)),
+                        Text(pName,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),),
+                        Text("\u{20B9}${pPrice}",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500)),
                         Row(mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text('Seller : Jack',style: TextStyle(fontSize: 23,fontWeight: FontWeight.w500),),
@@ -134,9 +139,8 @@ class AddToCartPage extends StatelessWidget{
 
           ],
           ),
-          Positioned(
-            left: 16,
-            bottom: 6,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
               height: 77,
               width: 410,

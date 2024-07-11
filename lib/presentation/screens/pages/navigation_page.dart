@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'add_to_cart.dart';
 import 'home_page.dart';
-import 'item_page.dart';
+import 'cart_page.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
@@ -13,9 +12,9 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   List<Widget> pages=[
     HomePage(),
-    ItemPage(),
-    AddToCartPage(),
-    AddToCartPage(),
+    Center(child: Text('Favorite'),),
+    MyCartPage(),
+    Center(child: Text('Profile'),),
   ];
   int selectedIndex=0;
   @override
