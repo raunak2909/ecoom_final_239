@@ -57,7 +57,7 @@ class MyCartPage extends StatelessWidget{
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: listItem.length,
-                itemBuilder: (c, i) =>
+                itemBuilder: (c, index) =>
                     Stack(
                       children: [
                         Container(
@@ -78,7 +78,7 @@ class MyCartPage extends StatelessWidget{
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Color(0xffe3e3e3)),
-                            child: Image.asset(listItem[i]['Image']),
+                            child: Image.asset(listItem[index]['Image']),
                           ),
                         ),
                         Positioned(
@@ -89,16 +89,16 @@ class MyCartPage extends StatelessWidget{
                             width: 250,
                             child: Column(children: [
                               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                Text(listItem[i]['Text'],style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500)),
+                                Text(listItem[index]['Text'],style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500)),
                                 Icon(Icons.delete,color: Colors.red,size: 30,),
                               ],),
                               Row(
                                 children: [
-                                  Text(listItem[i]['Text3'],style: TextStyle(fontSize: 19,fontWeight: FontWeight.w500,color: Colors.grey.shade600)),
+                                  Text(listItem[index]['Text3'],style: TextStyle(fontSize: 19,fontWeight: FontWeight.w500,color: Colors.grey.shade600)),
                                 ],
                               ),
                               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                Text(listItem[i]['Text2'],style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700)),
+                                Text(listItem[index]['Text2'],style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700)),
                                 Container(
                                   height: 25,
                                   width: 75,

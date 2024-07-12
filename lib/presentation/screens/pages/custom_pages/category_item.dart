@@ -4,7 +4,7 @@ import 'package:ecommerce_app/presentation/screens/pages/category_bloc/category_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'category_bloc/category_bloc.dart';
+import '../category_bloc/category_bloc.dart';
 class CategoryItem extends StatefulWidget {
   const CategoryItem({super.key});
 

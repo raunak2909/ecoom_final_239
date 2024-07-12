@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app/presentation/screens/pages/category_bloc/category_bloc.dart';
 import 'package:ecommerce_app/presentation/screens/pages/category_bloc/category_events.dart';
-import 'package:ecommerce_app/presentation/screens/pages/poduct_page.dart';
 import 'package:ecommerce_app/presentation/screens/pages/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/presentation/screens/pages/product_bloc/product_event.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/ui_data.dart';
-import 'category_item.dart';
+import 'custom_pages/category_item.dart';
+import 'custom_pages/poduct_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
