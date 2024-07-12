@@ -1,13 +1,30 @@
+import 'package:ecommerce_app/presentation/screens/on_board/login_bloc/login_state.dart';
+import 'package:ecommerce_app/presentation/screens/pages/detail_page/bloc/detail_bloc.dart';
+import 'package:ecommerce_app/presentation/screens/pages/detail_page/bloc/detail_event.dart';
+import 'package:ecommerce_app/presentation/screens/pages/detail_page/bloc/detail_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ItemDetailPage extends StatelessWidget{
+class ItemDetailPage extends StatefulWidget{
+  int mProductId;
   String imgUrl;
   String pName;
   String pPrice;
-  ItemDetailPage({required this.imgUrl,required this.pName,required this.pPrice});
+
+  ItemDetailPage({required this.mProductId, required this.imgUrl,required this.pName,required this.pPrice});
+
+  @override
+  State<ItemDetailPage> createState() => _ItemDetailPageState();
+}
+
+class _ItemDetailPageState extends State<ItemDetailPage> {
+
+  int qty = 1;
+  bool isLoading = false;
+
   List<Map<String,dynamic>> listColor=[
     {
       'color':Colors.orange
@@ -21,6 +38,7 @@ class ItemDetailPage extends StatelessWidget{
       'color':Colors.blue
     },
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +77,7 @@ class ItemDetailPage extends StatelessWidget{
                 ],
               ),
             ),
-            Image.network(imgUrl,height: 300,width: 300,),
+            Image.network(widget.imgUrl,height: 300,width: 300,),
             SizedBox(
               height: 500,
               child: Container(
@@ -72,8 +90,8 @@ class ItemDetailPage extends StatelessWidget{
                   padding: const EdgeInsets.all(30),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(pName,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),),
-                        Text("\u{20B9}${pPrice}",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500)),
+                        Text(widget.pName,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),),
+                        Text("\u{20B9}${widget.pPrice}",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500)),
                         Row(mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text('Seller : Jack',style: TextStyle(fontSize: 23,fontWeight: FontWeight.w500),),
@@ -139,50 +157,101 @@ class ItemDetailPage extends StatelessWidget{
 
           ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 77,
-              width: 410,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Color(0xff000000),
-              ),
-              child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Container(
-                    height: 44,
-                    width: 150,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(55),
-                        border: Border.all(color: Colors.white,width: 2,)
-                    ),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('-',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
-                        Text('1',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white)),
-                        Text('+',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white)),
-                      ],
-                    ),
-                  ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 11.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 77,
+                width: 410,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Color(0xff000000),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Container(
-                      height: 55,
-                      width: 210,
+                child: Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25),
+                    child: Container(
+                      height: 44,
+                      width: 150,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(60),
-                        color: Color(0xffff660e),
+                          borderRadius: BorderRadius.circular(55),
+                          border: Border.all(color: Colors.white,width: 2,)
                       ),
-                      child: Center(
-                        child: Text('Add to Cart',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500,color: Colors.white)),
-                      )
-                  ),
-                ),
-              ]),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          InkWell(
+                              onTap: (){
+                                if(qty>1){
+                                  qty--;
+                                  setState(() {
 
+                                  });
+                                }
+                              },
+                              child: Text('-',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),)),
+                          Text('$qty',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white)),
+                          InkWell(
+                            onTap: (){
+                              qty++;
+                              setState(() {
+
+                              });
+                            },
+                              child: Text('+',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white))),
+                        ],
+                      ),
+                    ),
+                  ),
+                  BlocListener<DetailBloc, DetailState>(
+                    listener: (_, state){
+                      if(state is DetailLoadingState){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Adding..')));
+                        isLoading = true;
+                        setState(() {
+
+                        });
+                      } else if(state is DetailLoadedState){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Added to Cart successfully..')));
+                        isLoading = false;
+                        setState(() {
+
+                        });
+                      } else if(state is DetailErrorState){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: ${state.errorMsg}')));
+                        isLoading = false;
+                        setState(() {
+
+                        });
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Container(
+                          height: 55,
+                          width: 210,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60),
+                            color: Color(0xffff660e),
+                          ),
+                          child: Center(
+                            child: isLoading ? Row(
+                              children: [
+                                CircularProgressIndicator(),
+                                Text('Adding..')
+                              ],
+                            ) : InkWell(
+                                onTap: (){
+                                  context.read<DetailBloc>().add(AddToCartEvent(productId: widget.mProductId, qty: qty));
+                                },
+                                child: Text('Add to Cart',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500,color: Colors.white))),
+                          )
+                      ),
+                    ),
+                  ),
+                ]),
+
+              ),
             ),
           ),
         ],

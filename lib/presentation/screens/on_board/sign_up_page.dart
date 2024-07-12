@@ -110,9 +110,9 @@ class _SignUpState extends State<SignUp> {
                         return '*Required';
                       }else if(value.length<8){
                         return 'Password must be 8 letter long';
-                      }else if(!isPassValid(value)){
+                      }/*else if(!isPassValid(value)){
                         return 'Enter a strong password';
-                      }
+                      }*/
                       return null;
                     },
                     controller: passController,
