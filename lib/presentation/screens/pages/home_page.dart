@@ -5,6 +5,7 @@ import 'package:ecommerce_app/presentation/screens/pages/category_bloc/category_
 import 'package:ecommerce_app/presentation/screens/pages/category_bloc/category_events.dart';
 import 'package:ecommerce_app/presentation/screens/pages/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/presentation/screens/pages/product_bloc/product_event.dart';
+import 'package:ecommerce_app/presentation/screens/pages/product_bloc/product_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,9 +141,30 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(
-              height: double.maxFinite,
-              child: ProductPage())
+          BlocBuilder<ProductBloc,ProductState>(
+            builder: (_,state){
+              if(state is PLoadingState){
+                return Center(child: CircularProgressIndicator(),);
+              }else if(state is PErrorState){
+                return Center(child: Text(state.msg),);
+              }else if(state is PLoadedState){
+                return GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: state.dataModel.data!.length,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 220,
+                      childAspectRatio: 10/16,
+                    ),
+                    itemBuilder: (_, index){
+                      var  mData=state.dataModel.data!;
+                      return ProductPage( mData: mData,index: index,);});
+
+              }
+              return Container();
+            },
+          ),
+
         ],
       ),
 
