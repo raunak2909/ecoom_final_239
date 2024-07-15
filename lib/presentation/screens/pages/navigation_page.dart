@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'cart/cart_page.dart';
 import 'home_page.dart';
-import 'cart_page.dart';
+
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});

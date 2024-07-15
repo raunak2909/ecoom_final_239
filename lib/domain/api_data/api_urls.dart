@@ -10,8 +10,8 @@ class GetApiUrl{
   static const String ADD_TO_CART_URL='${BASE_URL}/ecommerce-api/add-to-card';
   static const String VIEW_CART_URL='${BASE_URL}/ecommerce-api/product/view-cart';
   ///order
-  static const String PLACE_ORDER_URL='${BASE_URL}/ecommerce-api/categories';
-  static const String FETCH_ALL_ORDER_URL='${BASE_URL}/ecommerce-api/add-to-card';
+  static const String PLACE_ORDER_URL='${BASE_URL}/ecommerce-api/product/create-order';
+  static const String FETCH_ALL_ORDER_URL='${BASE_URL}/ecommerce-api/product/get-order';
   //jayesh@gmail.com
 
 
